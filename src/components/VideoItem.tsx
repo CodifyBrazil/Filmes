@@ -107,7 +107,6 @@ export const VideoItem = ({typeGeners, name} :movieVideoProps) =>{
         
     }
 
-    console.log(left);
     return (
         <div>
             <Flex direction='column' p='3'>
