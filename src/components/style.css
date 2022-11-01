@@ -17,3 +17,12 @@
 .headerBlack{
     background-color: #111;
 }
+
+.button {
+    background-color: #111;
+    color: white;
+}
+
+.button:hover{
+    background-color: #111;
+}

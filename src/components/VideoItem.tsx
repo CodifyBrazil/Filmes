@@ -7,6 +7,10 @@ import { getMovieVideoInfo } from '../utils/Movie';
 import './style.css';
 import { ModalVideo } from './ModalVideo';
 
+import LeftArrow from '../assets/left-arrow.png';
+import RightArrow from '../assets/right-arrow.png';
+
+
 import {
     Popover,
     PopoverTrigger,
@@ -99,16 +103,19 @@ export const VideoItem = ({typeGeners, name} :movieVideoProps) =>{
                 setBanners(data3.data.results);
                 break;
             case 'acao':
-                let data4 = await axiosInstance.get(`/discover/movie?api_key=${keyAPI}&language=pt-BR&page=1&with_genres=12`);
+                let data4 = await axiosInstance.get(`/discover/movie?api_key=${keyAPI}&language=pt-BR&page=1&with_genres=28`);
                 setBanners(data4.data.results);
+                break;
             case 'comedia':
-                let data5 = await axiosInstance.get(`/discover/movie?api_key=${keyAPI}&language=pt-BR&page=1&with_genres=12`);
+                let data5 = await axiosInstance.get(`/discover/movie?api_key=${keyAPI}&language=pt-BR&page=1&with_genres=35`);
                 setBanners(data5.data.results);
+                break;
             case 'terror':
-                let data6 = await axiosInstance.get(`/discover/tv?api_key=${keyAPI}&language=pt-BR&page=1&with_genres=27`);
+                let data6 = await axiosInstance.get(`/discover/movie?api_key=${keyAPI}&language=pt-BR&page=1&with_genres=27`);
                 setBanners(data6.data.results);
+                break;
             case 'romance':
-                let data7 = await axiosInstance.get(`/discover/tv?api_key=${keyAPI}&language=pt-BR&page=1&with_genres=10`);
+                let data7 = await axiosInstance.get(`/discover/tv?api_key=${keyAPI}&language=pt-BR&page=1&with_genres=10749`);
                 setBanners(data7.data.results);
                 break;
             default:
@@ -116,9 +123,7 @@ export const VideoItem = ({typeGeners, name} :movieVideoProps) =>{
         }
         setLoading(false);
     }
- 
-    //361743
-    //7aOCYTflp8o
+
 
     return (
         <div>
@@ -136,7 +141,9 @@ export const VideoItem = ({typeGeners, name} :movieVideoProps) =>{
                     {(name)?name:genresName} 
                 </Text>
                 
-                <Flex>
+                <Flex overflow={'auto'}>
+                    
+                    <Button className='button' borderRadius='1px' pos='absolute' zIndex={'1'} w='50px' h='220px' color={'#fff'}> <Image src={LeftArrow} w='50px'></Image></Button>
                     {banners.map((item, index)=>(
                     <Flex key={index}>
                         
@@ -150,11 +157,11 @@ export const VideoItem = ({typeGeners, name} :movieVideoProps) =>{
                                 {/*<Popover trigger='hover' placement='right'>
                                     <PopoverTrigger >*/}
                                         <Image 
-                                            onMouseOver={(e) => {getMovieVideoInfo(item.id)}}
+                                            // onMouseOver={(e) => {getMovieVideoInfo(item.id)}}
                                             className='img' 
                                             boxSize='100%'
                                             cursor='pointer'
-                                            src={`https://image.tmdb.org/t/p/original//${item.poster_path}
+                                            src={`https://image.tmdb.org/t/p/original/${item.poster_path}
                                         `} alt={item.title}/>
                                    {/* </PopoverTrigger>
                                     <PopoverContent bg='#2D3748' border={'#2D3748'} boxShadow='lg'>
@@ -178,6 +185,8 @@ export const VideoItem = ({typeGeners, name} :movieVideoProps) =>{
                     </Flex>
                 
                 ))}
+                <Button className='button' left={'95.5%'} borderRadius='1px' pos='absolute' zIndex={'1'} bg='blackAlpha.900' w='50px' h='220px' color={'#fff'}> <Image src={RightArrow} w='50px'></Image></Button>
+
             </Flex>
 
             </Flex>
