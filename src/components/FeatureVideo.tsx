@@ -123,7 +123,7 @@ export const FeatureVideo = () => {
                                     </Text>
 
                                     <Text ml='20px' css={{color:'#ddd'}} as='b'>
-                                        {feature?.number_of_seasons} Temporada{feature?.number_of_seasons > 1?'s':''}
+                                        {feature?.number_of_seasons} Temporadas
                                     </Text>
                                 </Flex>
                                 
