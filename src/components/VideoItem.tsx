@@ -1,4 +1,4 @@
-import { Text, Flex, Image, Spinner, Box } from '@chakra-ui/react';
+import { Text, Flex, Image, Spinner, Box, Button } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -9,23 +9,6 @@ import { ModalVideo } from './ModalVideo';
 
 import LeftArrow from '../assets/left-arrow.png';
 import RightArrow from '../assets/right-arrow.png';
-
-
-import {
-    Popover,
-    PopoverTrigger,
-    PopoverContent,
-    PopoverHeader,
-    PopoverBody,
-    PopoverFooter,
-    PopoverArrow,
-    AspectRatio,
-    PopoverCloseButton,
-    PopoverAnchor,
-    Button
-  } from '@chakra-ui/react'
-
-
 
 type movieVideoProps = {
     typeGeners: string;
@@ -52,6 +35,7 @@ export const VideoItem = ({typeGeners, name} :movieVideoProps) =>{
     let keyMovie = '';
     const keyAPI = '7b69b682bb4c48c790bd83224ef7520c';
 
+    const [left, setLeft] = useState(0);
     const [loading, setLoading] = useState<boolean>(false);
     const [banners, setBanners] = useState<MovieItem[]>([]);
     const [genres, setGenres] = useState<GenresType[]>([]);
@@ -61,28 +45,6 @@ export const VideoItem = ({typeGeners, name} :movieVideoProps) =>{
         baseURL:'https://api.themoviedb.org/3'
     });
 
-    const getMovieVideoInfo = async (id: number) => {
-        try{
-            const data = await axiosInstance.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=7b69b682bb4c48c790bd83224ef7520c&language=pt-BR`);
-            const result = await data.data.results[0];
-            keyMovie = result.key;
-
-            console.log(keyMovie);
-            
-        }
-        catch(e){
-            `Erro: ${e}`;
-        }
-    }
-
-    /*
-    const getGenres = async () =>{
-        let {data} = await axiosInstance.get(`/genre/movie/list?api_key=7b69b682bb4c48c790bd83224ef7520c&language=pt-BR`);
-        setGenres(data.genres);
-        let arraysGenres = genres.find(item => item.id === parseInt(movieId)) || {} as GenresType;
-        setGenresName(arraysGenres.name); 
-        getMovies('originals');
-    }*/
 
     const getMovies = async (tipo: string) => {
         setLoading(true);
@@ -124,7 +86,28 @@ export const VideoItem = ({typeGeners, name} :movieVideoProps) =>{
         setLoading(false);
     }
 
+    const handleLeft = () => {
+        // -1600
+        if(left === -1500){
+            setLeft(left - 100);
+        }
+        else{
+            left > -1000?setLeft(left-1000):setLeft(left-500);
+        }
+    }
 
+    const handleRight = () => {
+        // 0
+        if(left <= 0){
+            
+        }
+        else{
+            setLeft(left + 1000);
+        }
+        
+    }
+
+    console.log(left);
     return (
         <div>
             <Flex direction='column' p='3'>
@@ -141,21 +124,26 @@ export const VideoItem = ({typeGeners, name} :movieVideoProps) =>{
                     {(name)?name:genresName} 
                 </Text>
                 
-                <Flex overflow={'auto'}>
+                <Button 
+                onClick={handleLeft}
+                className='button' 
+                borderRadius='1px' 
+                pos='absolute' 
+                bg='blackAlpha.100' 
+                mt='35px'
+                _hover={{backgroundColor:'blackAlpha.900'}} 
+                zIndex={'1'} w='50px' h='220px' color={'#fff'}> 
+                <Image src={LeftArrow} w='50px'></Image>
+                </Button>
+                <Flex overflow={'hidden'} ml={left} transition='all 0.3s ease'>
                     
-                    <Button className='button' borderRadius='1px' pos='absolute' zIndex={'1'} w='50px' h='220px' color={'#fff'}> <Image src={LeftArrow} w='50px'></Image></Button>
                     {banners.map((item, index)=>(
                     <Flex key={index}>
                         
                             <Box 
                                 w='145px'
-
                                 >
                                 <ModalVideo data={item}>
-
-
-                                {/*<Popover trigger='hover' placement='right'>
-                                    <PopoverTrigger >*/}
                                         <Image 
                                             // onMouseOver={(e) => {getMovieVideoInfo(item.id)}}
                                             className='img' 
@@ -163,29 +151,26 @@ export const VideoItem = ({typeGeners, name} :movieVideoProps) =>{
                                             cursor='pointer'
                                             src={`https://image.tmdb.org/t/p/original/${item.poster_path}
                                         `} alt={item.title}/>
-                                   {/* </PopoverTrigger>
-                                    <PopoverContent bg='#2D3748' border={'#2D3748'} boxShadow='lg'>
-                                        <PopoverArrow />
-                                        <PopoverHeader>{item.title}</PopoverHeader>
-                                        <PopoverBody>
-                                        <AspectRatio ratio={16 / 9} >
-                                            <iframe
-                                                title={item.title}
-                                                src={`https://www.youtube.com/embed/${keyMovie}`}
-                                                allowFullScreen
-                                            />
-                                        </AspectRatio>
-                                        </PopoverBody>
-                                    </PopoverContent>
-                                </Popover></Flex>*/}
-
+                                   
                                     
                                 </ModalVideo> 
                             </Box>
                     </Flex>
                 
                 ))}
-                <Button className='button' left={'95.5%'} borderRadius='1px' pos='absolute' zIndex={'1'} bg='blackAlpha.900' w='50px' h='220px' color={'#fff'}> <Image src={RightArrow} w='50px'></Image></Button>
+                <Button 
+                onClick={handleRight}
+                className='button' 
+                left={'95.5%'} 
+                borderRadius='1px' 
+                pos='absolute' 
+                zIndex={'1'} 
+                bg='blackAlpha.100' 
+                _hover={{backgroundColor:'blackAlpha.900'}} 
+                w='50px' h='220px' 
+                color={'#fff'}> 
+                <Image src={RightArrow} w='50px'></Image>
+                </Button>
 
             </Flex>
 

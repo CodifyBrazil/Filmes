@@ -1,11 +1,9 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { useEffect, useState } from 'react';
 
 import './style.css';
 
 export const Header = () => {
 
-    const [scrollTop, setScrollTop] = useState<number>(0);
 
     window.addEventListener('scroll', ()=>{
         let scrollNumber = window.scrollY;

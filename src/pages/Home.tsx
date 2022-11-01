@@ -7,10 +7,10 @@ import { Header } from '../components/Header';
 export const Home = () => {
     return (
         <div>
-            <Flex direction='column' bg='blackAlpha.900' h='100%' textColor='whiteAlpha.900'>
+            <Flex direction='column' bg='blackAlpha.900' h='100%' textColor='whiteAlpha.900' overflow='hidden'>
                 <Header />
                 <FeatureVideo />
-                <Box mt='40%' zIndex={'999'}>
+                <Box mt='40%' zIndex={'999'} >
                     <VideoItem typeGeners='originals' name='Originais Netflix' />
                     <VideoItem typeGeners='trending' name='Os melhores'/>
                     <VideoItem typeGeners='topreated' name='Mais bem votados'/>
