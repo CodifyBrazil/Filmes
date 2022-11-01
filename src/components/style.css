@@ -1,0 +1,19 @@
+.img{
+    transition: all .3s ease;
+    transform: scale(.9);
+}
+
+.img:hover{
+    transform: scale(1);
+}
+
+.modal{
+    background-color: black;
+}
+.header{
+    transition: all .3s ease;
+}
+
+.headerBlack{
+    background-color: #111;
+}
