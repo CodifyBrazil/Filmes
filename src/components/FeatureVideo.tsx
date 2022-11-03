@@ -35,7 +35,7 @@ export const FeatureVideo = () => {
 
     const moviesId = [
         {id: 18, name: 'Drama'},
-        {id: 10751, name: 'Familia'},
+        {id: 10751, name: 'Familia'},   
         {id: 35, name: 'Comedia'},
         {id: 10749, name: 'Romance'},
         {id: 99, name: 'Documentario'}
